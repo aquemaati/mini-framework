@@ -1,22 +1,23 @@
 // src/main.ts
 
-import { router } from './core/router';
 import './core/createComponent';
-import './components/router-link';
-import './components/nav-bar';
-import './components/home-page';
-import './components/about-page';
-import './components/contact-page';
-import './components/article-list';
-import './components/article-detail';
-import './components/not-found';
+import './core/router';
+import './core/store'; // Import du core store (non modifié)
 
-// Définition des routes
-router.addRoute('/', 'home-page');
-router.addRoute('/about', 'about-page');
-router.addRoute('/contact', 'contact-page');
-router.addRoute('/articles', 'article-list');
-router.addRoute('/article/:id', 'article-detail');
+import './app-store'; // Import du store spécifique à l'application
+
+import './components/router-link';
+import './components/todo-app';
+import './components/todo-input';
+import './components/todo-list';
+import './components/todo-item';
+import './components/todo-footer';
+
+// Importation du routeur
+import { router } from './core/router';
+
+// Définition des routes (si nécessaire)
+router.addRoute('/', 'todo-app');
 
 // Gestion de la route initiale
 router.handleRoute();
