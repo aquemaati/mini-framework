@@ -1,6 +1,6 @@
 # **Mini-Framework Typescript**
 
-Bienvenue dans la documentation complète de votre mini-framework JavaScript. Ce framework est conçu pour simplifier le développement d'applications web modernes en utilisant les **Web Components**, le **Shadow DOM**, et des fonctionnalités intégrées pour la gestion de l'état et le routage.
+Ce framework est conçu pour simplifier le développement d'applications web modernes en utilisant les **Web Components**, le **Shadow DOM**, et des fonctionnalités intégrées pour la gestion de l'état et le routage.
 
 ---
 
