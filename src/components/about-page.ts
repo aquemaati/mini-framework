@@ -3,10 +3,19 @@
 import { createComponent } from '../core/createComponent';
 
 createComponent('about-page', {
-  render() {
+  state: { count: 0 }, // État initial
+  render(state) {
     return `
-      <h1>À propos</h1>
-      <p>Informations sur notre application.</p>
+     <div>
+        <p>Compteur : ${state.count }</p>
+        <button class="increment">Incrémenter</button>
+      </div>
     `;
+  },
+  events: {
+    'click@.increment': function () {
+      const currentCount = this.state.count;
+      this.setState({ count: currentCount + 1 });
+    },
   },
 });
