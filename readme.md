@@ -12,7 +12,6 @@ Bienvenue dans la documentation complète de votre mini-framework JavaScript. Ce
   - [**Fonctionnalités Clés**](#fonctionnalités-clés)
   - [**Installation et Configuration**](#installation-et-configuration)
     - [**Prérequis**](#prérequis)
-    - [**Installation**](#installation)
   - [**Guide de Démarrage Rapide**](#guide-de-démarrage-rapide)
     - [**Structure du Projet**](#structure-du-projet)
     - [**Configuration de Base**](#configuration-de-base)
@@ -73,35 +72,6 @@ L'objectif est de vous fournir les outils nécessaires pour créer des **composa
 - **npm** (version 6 ou supérieure)
 - **TypeScript** (recommandé pour bénéficier du typage statique)
 
-### **Installation**
-
-1. **Initialisez votre projet :**
-
-   ```bash
-   mkdir mon-projet
-   cd mon-projet
-   npm init -y
-   ```
-
-2. **Installez TypeScript en tant que dépendance de développement :**
-
-   ```bash
-   npm install --save-dev typescript
-   ```
-
-3. **Générez un fichier de configuration TypeScript (`tsconfig.json`) :**
-
-   ```bash
-   npx tsc --init
-   ```
-
-4. **Installez un serveur de développement (facultatif) :**
-
-   ```bash
-   npm install -g live-server
-   ```
-
----
 
 ## **Guide de Démarrage Rapide**
 
