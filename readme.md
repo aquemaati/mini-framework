@@ -1,4 +1,4 @@
-# **Documentation Complète du Mini-Framework JavaScript**
+# **Mini-Framework Typescript**
 
 Bienvenue dans la documentation complète de votre mini-framework JavaScript. Ce framework est conçu pour simplifier le développement d'applications web modernes en utilisant les **Web Components**, le **Shadow DOM**, et des fonctionnalités intégrées pour la gestion de l'état et le routage.
 
@@ -6,7 +6,7 @@ Bienvenue dans la documentation complète de votre mini-framework JavaScript. Ce
 
 ## **Table des Matières**
 
-- [**Documentation Complète du Mini-Framework JavaScript**](#documentation-complète-du-mini-framework-javascript)
+- [**Mini-Framework Typescript**](#mini-framework-typescript)
   - [**Table des Matières**](#table-des-matières)
   - [**Introduction**](#introduction)
   - [**Fonctionnalités Clés**](#fonctionnalités-clés)
