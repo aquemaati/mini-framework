@@ -16,7 +16,7 @@ export type ComponentOptions = {
   disconnectedCallback?(this: ComponentInstance): void;
   observedAttributes?: string[];
   attributeChangedCallback?(this: ComponentInstance, name: string, oldValue: string, newValue: string): void;
-  events?: { [key: string]: (this: ComponentInstance, event: Event) => void };
+  events?: { [key: string]: (this: ComponentInstance, event: any) => void };
   route?: string;
 };
 
