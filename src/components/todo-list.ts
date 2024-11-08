@@ -1,44 +1,34 @@
 // src/components/todo-list.ts
 
 import { createComponent } from '../core/createComponent';
-import { appStore } from '../app-store';
-import './todo-item';
-import { store } from '../core/store';
+import { todos } from './todo-app';
+import './todo-item'; // Assurez-vous que le composant todo-item est importé
 
 createComponent('todo-list', {
   render() {
-    const { todos, filter } = appStore.getState();
-    const filteredTodos = todos.filter((todo : any) => {
-      if (filter === 'active') return !todo.completed;
-      if (filter === 'completed') return todo.completed;
-      return true;
-    });
+    const { todos: todoList, filter } = todos.getState();
 
-    const todoItems = filteredTodos
-      .map((todo : any) => `<todo-item todo-id="${todo.id}"></todo-item>`)
-      .join('');
+    // Filtrer les todos en fonction du filtre sélectionné
+    const filteredTodos = todoList
+      .map((todo: any, index: number) => ({ ...todo, originalIndex: index }))
+      .filter((todo: any) => {
+        if (filter === 'active') return todo.status === 'active';
+        if (filter === 'completed') return todo.status === 'completed';
+        return true; // 'all' ou aucun filtre
+      });
 
     return `
-      <section class="main">
-        ${todos.length > 0 ? '<input id="toggle-all" class="toggle-all" type="checkbox">' : ''}
-        <label for="toggle-all">Marquer tout comme terminé</label>
-        <ul class="todo-list">
-          ${todoItems}
-        </ul>
-      </section>
+      <ul>
+        ${filteredTodos
+          .map((todo: any) => `
+            <todo-item idtodo="${todo.originalIndex}"></todo-item>
+          `)
+          .join('')}
+      </ul>
     `;
   },
-  events: {
-    'change@#toggle-all': function (event) {
-      const completed = (event.target as HTMLInputElement).checked;
-      const todos = appStore.getState().todos.map((todo: any) => ({ ...todo, completed }));
-      appStore.setState({ todos });
-    },
-  },
+  // Écouter les changements de l'état des todos pour re-render
   connectedCallback() {
-      store.subscribe(() => this.update());
-  },
-  disconnectedCallback() {
-//     this.unsubscribe && this.unsubscribe();
+    todos.subscribe(() => this.update());
   },
 });

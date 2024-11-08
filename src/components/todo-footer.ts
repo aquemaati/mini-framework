@@ -1,43 +1,50 @@
 // src/components/todo-footer.ts
+import { createComponent } from "../core/createComponent";
+import { todos } from "./todo-app";
 
-import { createComponent } from '../core/createComponent';
-import { appStore } from '../app-store';
-import { store } from '../core/store';
-
-createComponent('todo-footer', {
+createComponent("todo-footer", {
   render() {
-    const { todos, filter } = appStore.getState();
-    const remaining = todos.filter((todo : any) => !todo.completed).length;
-    const completed = todos.filter((todo : any) => todo.completed).length;
+    // Décomptez le nombre de tâches actives
 
     return `
       <footer class="footer">
-        <span class="todo-count"><strong>${remaining}</strong> tâche(s) restante(s)</span>
         <ul class="filters">
-          <li><a href="#/" class="${filter === 'all' ? 'selected' : ''}">Toutes</a></li>
-          <li><a href="#/active" class="${filter === 'active' ? 'selected' : ''}">Actives</a></li>
-          <li><a href="#/completed" class="${filter === 'completed' ? 'selected' : ''}">Terminées</a></li>
+          <li><router-link href="/" class="filter-btn-all selected" data-filter="all">All</router-link></li>
+          <li><router-link href="/active" class="filter-btn-active" data-filter="active">Active</router-link></li>
+          <li><router-link href="/completed" class="filter-btn-completed" data-filter="completed">Completed</router-link></li>
         </ul>
-        ${completed > 0 ? '<button class="clear-completed">Effacer terminées</button>' : ''}
+        <button class="clear-completed">Clear completed</button>
       </footer>
     `;
   },
   events: {
-    'click@.clear-completed': function () {
-      const todos = appStore.getState().todos.filter((todo : any) => !todo.completed);
-      appStore.setState({ todos });
+    'click@.filter-btn-all': function() {
+
+      todos.setState({ todos: todos.getState().todos, filter: 'all' });
+     
+      // Gérer le filtrage des tâches ici
+      console.log(`Filter clicked : all`);
+      console.log(todos.getState());
+      
     },
-    'click@.filters a': function (event) {
-      event.preventDefault();
-      const hash = (event.target as HTMLAnchorElement).getAttribute('href')!;
-      const filter = hash.replace('#/', '') || 'all';
-      appStore.setState({ filter });
+
+    'click@.filter-btn-active': function() {
+      // Gérer le filtrage des tâches ici
+      console.log(`Filter clicked : active`);
+      todos.setState({ todos: todos.getState().todos, filter: 'active' });
+      console.log(todos.getState());
     },
-  },
-  connectedCallback() {
-    store.subscribe(() => this.update());
-  },
-  disconnectedCallback() {
-//     this.unsubscribe && this.unsubscribe();
+
+    'click@.filter-btn-completed': function() {
+      // Gérer le filtrage des tâches ici
+      console.log(`Filter clicked : completed`);
+      todos.setState({ todos: todos.getState().todos, filter: 'completed' });
+      console.log(todos.getState());
+    },
+
+    'click@.clear-completed': function() {
+      // Supprimez toutes les tâches terminées
+
+    },
   },
 });

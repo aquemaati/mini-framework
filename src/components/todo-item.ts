@@ -1,88 +1,59 @@
 // src/components/todo-item.ts
 
-import { createComponent, ComponentInstance } from '../core/createComponent';
-import { appStore } from '../app-store';
+import { createComponent } from '../core/createComponent';
+import { todos } from './todo-app';
 
 interface Todo {
-  id: number;
-  text: string;
-  completed: boolean;
+  todo: string;
+  status: 'active' | 'completed';
 }
 
 createComponent('todo-item', {
-  observedAttributes: ['todo-id'],
-  render: function (this: ComponentInstance) {
-    const todoId = parseInt(this.getAttribute('todo-id')!, 10);
-    const todo = appStore.getState().todos.find((t: Todo) => t.id === todoId);
-    if (!todo) return '';
+  state: {
+    index: 0, // Initialiser l'index par défaut
+  },
+  connectedCallback() {
+    const index = Number(this.getAttribute('idtodo') || 0);
+    this.setState({ index });
+  },
+  render(state) {
+    const { index } = state;
+    const currentTodo = todos.getState().todos[index];
+
+    if (!currentTodo) {
+      return `
+        <li>
+          <span>Tâche non trouvée</span>
+        </li>
+      `;
+    }
 
     return `
-      <li class="${todo.completed ? 'completed' : ''}">
-        <div class="view">
-          <input class="toggle" type="checkbox" ${todo.completed ? 'checked' : ''}>
-          <label>${todo.text}</label>
-          <button class="destroy"></button>
-        </div>
-        <input class="edit" value="${todo.text}">
+      <li data-index="${index}">
+        <input type="checkbox" ${currentTodo.status === 'completed' ? 'checked' : ''} />
+        <span>${currentTodo.todo}</span>
+        <button class="delete-btn">Delete</button>
       </li>
     `;
   },
+  
   events: {
-    'change@.toggle': function (this: ComponentInstance, event: Event) {
-      const todoId = parseInt(this.getAttribute('todo-id')!, 10);
-      const todos = appStore.getState().todos.map((todo: Todo) => {
-        if (todo.id === todoId) {
-          return { ...todo, completed: (event.target as HTMLInputElement).checked };
-        }
-        return todo;
-      });
-      appStore.setState({ todos });
+    'change@input[type="checkbox"]': function (event: Event) {
+      const checkbox = event.target as HTMLInputElement;
+      const index = this.state.index;    
+      const updatedTodos = todos.getState().todos.map((t: Todo, idx: number) =>
+        idx === index ? { ...t, status: checkbox.checked ? 'completed' : 'active' } : t
+      );
+      todos.setState({ todos: updatedTodos });
+      console.log(updatedTodos);
+      
     },
-    'click@.destroy': function (this: ComponentInstance) {
-      const todoId = parseInt(this.getAttribute('todo-id')!, 10);
-      const todos = appStore.getState().todos.filter((todo: Todo) => todo.id !== todoId);
-      appStore.setState({ todos });
+    
+    'click@.delete-btn': function () { // Ajout du paramètre 'event'
+      const index =this.state.index;    
+      const updatedTodos = todos.getState().todos.filter((_: Todo, idx: number) => idx !== index);
+      console.log(updatedTodos);    
+      todos.setState({ todos: updatedTodos });
     },
-    'dblclick@label': function (this: ComponentInstance) {
-      this.classList.add('editing');
-      const editInput = this.shadowRoot!.querySelector('.edit') as HTMLInputElement;
-      editInput.focus();
-    },
-    'keyup@.edit': function (this: ComponentInstance, event: Event) {
-      const keyboardEvent = event as KeyboardEvent;
-      if (keyboardEvent.key === 'Enter') {
-        this.saveEdit();
-      } else if (keyboardEvent.key === 'Escape') {
-        this.classList.remove('editing');
-      }
-    },
-    'blur@.edit': function (this: ComponentInstance) {
-      this.saveEdit();
-    },
-  },
-  saveEdit: function (this: ComponentInstance) {
-    const editInput = this.shadowRoot!.querySelector('.edit') as HTMLInputElement;
-    const text = editInput.value.trim();
-    const todoId = parseInt(this.getAttribute('todo-id')!, 10);
-    if (text) {
-      const todos = appStore.getState().todos.map((todo: Todo) => {
-        if (todo.id === todoId) {
-          return { ...todo, text };
-        }
-        return todo;
-      });
-      appStore.setState({ todos });
-      this.classList.remove('editing');
-    } else {
-      // Supprimer la tâche si le texte est vide
-      const todos = appStore.getState().todos.filter((todo: Todo) => todo.id !== todoId);
-      appStore.setState({ todos });
-    }
-  },
-  connectedCallback: function (this: ComponentInstance) {
-    this.unsubscribe = appStore.subscribe(() => this.update());
-  },
-  disconnectedCallback: function (this: ComponentInstance) {
-    this.unsubscribe && this.unsubscribe();
   },
 });

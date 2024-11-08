@@ -25,4 +25,4 @@ export class Store {
 }
 
 // Instance unique du store pour toute l'application
-export const store = new Store();
+// export const store = new Store();

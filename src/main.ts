@@ -18,6 +18,8 @@ import { router } from './core/router';
 
 // Définition des routes (si nécessaire)
 router.addRoute('/', 'todo-app');
+router.addRoute('/active', 'todo-app');
+router.addRoute('/completed', 'todo-app');
 
 // Gestion de la route initiale
 router.handleRoute();
