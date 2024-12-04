@@ -12,12 +12,13 @@
   "include": [
     "src/**/*" 
   ],
-  //"exclude": [
-  //  "node_modules"
-  //]
+  "exclude": [
+    "node_modules"
+  ]
 }
 
 
 
 // Commande pour convertir
+// le -p spécifie le fichier de configuration
 // tsc -p tsconfig.conv.json
