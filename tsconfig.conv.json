@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES6",                          // Version de js
+    "module": "commonjs",                     // Format des fichier ; utilise require() pour importer des fichiers ou des bibliothèques, module.exports ou exports pour exporter des fonctionnalités. ComonJS est le choix le plus stable.
+    "outDir": "./jsProject",                  // Fichier Output
+    "rootDir": "./src",                       // Source du code à convertir
+    "strict": true,                           // Active le mode strict pour un meilleur contrôle des erreurs, évite les problèmes en rendant la compilation plus stable et robuste
+    "esModuleInterop": true,                  // Permet l'importation des modules CommonJS correctement
+    "skipLibCheck": true,                     // Ignore la vérification des fichiers de définission de type .d.ts , si il y'a des erreurs dans ces fichiers ça ne le signalera pas
+    "forceConsistentCasingInFileNames": true  // Assure que la cohérence des noms de fichier lors de la conversions
+  },
+  "include": [
+    "src/**/*" 
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
+
+
+
+// Commande pour convertir
+// le -p spécifie le fichier de configuration
+// tsc -p tsconfig.conv.json
