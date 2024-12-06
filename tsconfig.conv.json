@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES6",                          // Version de js
-    "module": "commonjs",                     // Format des fichier ; utilise require() pour importer des fichiers ou des bibliothèques, module.exports ou exports pour exporter des fonctionnalités. ComonJS est le choix le plus stable.
+    "module": "ESNext",                     // Format des fichier ; utilise require() pour importer des fichiers ou des bibliothèques, module.exports ou exports pour exporter des fonctionnalités. ComonJS est le choix le plus stable.
     "outDir": "./jsProject",                  // Fichier Output
     "rootDir": "./src",                       // Source du code à convertir
     "strict": true,                           // Active le mode strict pour un meilleur contrôle des erreurs, évite les problèmes en rendant la compilation plus stable et robuste

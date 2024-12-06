@@ -1,9 +1,6 @@
-"use strict";
 // src/core/createComponent.ts
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.createComponent = createComponent;
-const router_1 = require("./router");
-function createComponent(name, options) {
+import { router } from './router';
+export function createComponent(name, options) {
     class CustomElement extends HTMLElement {
         constructor() {
             super();
@@ -17,7 +14,7 @@ function createComponent(name, options) {
             (_a = options.connectedCallback) === null || _a === void 0 ? void 0 : _a.call(this);
             // Si une route est définie, ajouter la route au routeur
             if (options.route) {
-                router_1.router.addRoute(options.route, name);
+                router.addRoute(options.route, name);
             }
         }
         disconnectedCallback() {

@@ -1,15 +1,12 @@
-"use strict";
 // src/components/todo-app.ts
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.todos = void 0;
-const createComponent_1 = require("../core/createComponent");
-const store_1 = require("../core/store");
+import { createComponent } from "../core/createComponent";
+import { Store } from "../core/store";
 // Creation d'un store pour toute l'application
-exports.todos = new store_1.Store();
-exports.todos.setState({ todos: [], filter: "all" }); // Initialisation du store
-console.log(exports.todos.getState());
+export const todos = new Store();
+todos.setState({ todos: [], filter: "all" }); // Initialisation du store
+console.log(todos.getState());
 // Creation du composant todo-app
-(0, createComponent_1.createComponent)("todo-app", {
+createComponent("todo-app", {
     render() {
         return `
       <section class="todoapp">
