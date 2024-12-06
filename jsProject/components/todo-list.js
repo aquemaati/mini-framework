@@ -1,12 +1,10 @@
-"use strict";
 // src/components/todo-list.ts
-Object.defineProperty(exports, "__esModule", { value: true });
-const createComponent_1 = require("../core/createComponent");
-const todo_app_1 = require("./todo-app");
-require("./todo-item"); // Assurez-vous que le composant todo-item est importé
-(0, createComponent_1.createComponent)('todo-list', {
+import { createComponent } from '../core/createComponent';
+import { todos } from './todo-app';
+import './todo-item'; // Assurez-vous que le composant todo-item est importé
+createComponent('todo-list', {
     render() {
-        const { todos: todoList, filter } = todo_app_1.todos.getState();
+        const { todos: todoList, filter } = todos.getState();
         // Filtrer les todos en fonction du filtre sélectionné
         const filteredTodos = todoList
             .map((todo, index) => (Object.assign(Object.assign({}, todo), { originalIndex: index })))
@@ -29,6 +27,6 @@ require("./todo-item"); // Assurez-vous que le composant todo-item est importé
     },
     // Écouter les changements de l'état des todos pour re-render
     connectedCallback() {
-        todo_app_1.todos.subscribe(() => this.update());
+        todos.subscribe(() => this.update());
     },
 });

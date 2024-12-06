@@ -1,8 +1,5 @@
-"use strict";
 // src/core/store.ts
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Store = void 0;
-class Store {
+export class Store {
     constructor() {
         this.state = {};
         this.listeners = [];
@@ -21,6 +18,5 @@ class Store {
         this.listeners.forEach((listener) => listener(this.state));
     }
 }
-exports.Store = Store;
 // Instance unique du store pour toute l'application
 // export const store = new Store();

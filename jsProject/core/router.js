@@ -1,7 +1,4 @@
-"use strict";
 // src/core/router.ts
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.router = void 0;
 class Router {
     constructor(outletSelector) {
         this.routes = [];
@@ -65,4 +62,4 @@ class Router {
     }
 }
 // Instance unique du routeur pour toute l'application
-exports.router = new Router('main');
+export const router = new Router('main');

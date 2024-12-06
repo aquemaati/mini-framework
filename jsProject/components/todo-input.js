@@ -1,9 +1,7 @@
-"use strict";
 // src/components/todo-input.ts
-Object.defineProperty(exports, "__esModule", { value: true });
-const createComponent_1 = require("../core/createComponent");
-const todo_app_1 = require("./todo-app");
-(0, createComponent_1.createComponent)('todo-input', {
+import { createComponent } from '../core/createComponent';
+import { todos } from './todo-app';
+createComponent('todo-input', {
     render() {
         return `
       <input class="input-container" type="text" placeholder="What needs to be done?" />
@@ -25,14 +23,14 @@ const todo_app_1 = require("./todo-app");
                 const text = input.value.trim();
                 console.log(text);
                 if (text) {
-                    todo_app_1.todos.setState({
+                    todos.setState({
                         todos: [
-                            ...todo_app_1.todos.getState().todos,
+                            ...todos.getState().todos,
                             { todo: text, status: 'active' }
                         ]
                     });
                     input.value = '';
-                    console.log(todo_app_1.todos.getState());
+                    console.log(todos.getState());
                 }
             }
         },
